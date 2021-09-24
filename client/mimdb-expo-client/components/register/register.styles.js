@@ -3,27 +3,41 @@
 import { StyleSheet } from 'react-native';
 
 export const RegisterStyles = StyleSheet.create({
-  view: {
+  container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingTop: 50,
+    paddingHorizontal: 20,
+  },
+  formContainer: {
+    marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor: 'blue',
   },
   input: {
-    width: 150,
-    height: 30,
+    width: 250,
+    height: 45,
     borderWidth: 1,
     borderColor: 'black',
     marginVertical: 1,
+    fontSize: 20,
   },
-  button: {
+  back: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-start',
     height: 25,
     width: 50,
-    backgroundColor: 'blue',
     borderRadius: 25,
   },
-  buttonText: {},
+  button: {},
+  submitContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    width: 250,
+  },
+  submitFont: {
+    fontSize: 20,
+  },
 });

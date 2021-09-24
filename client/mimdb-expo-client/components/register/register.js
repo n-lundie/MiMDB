@@ -21,32 +21,41 @@ export const Register = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={RegisterStyles.view}>
-        <Pressable style={RegisterStyles.button} onPress={handleBack}>
-          <Text style={RegisterStyles.buttonText}>Back</Text>
+      <View style={RegisterStyles.container}>
+        <Pressable style={RegisterStyles.back} onPress={handleBack}>
+          <Text>Back</Text>
         </Pressable>
-        <Text>Sign Up</Text>
-        <TextInput
-          style={RegisterStyles.input}
-          placeholder="email"
-          returnKeyType="done"
-        />
-        <TextInput
-          style={RegisterStyles.input}
-          placeholder="username"
-          returnKeyType="done"
-        />
-        <TextInput
-          style={RegisterStyles.input}
-          placeholder="password"
-          returnKeyType="done"
-        />
-        <TextInput
-          style={RegisterStyles.input}
-          placeholder="confirm password"
-          returnKeyType="done"
-        />
-        <Button title="submit" />
+        <View style={RegisterStyles.formContainer}>
+          <Text>Sign Up</Text>
+          <TextInput
+            style={RegisterStyles.input}
+            placeholder="email"
+            returnKeyType="done"
+            keyboardType="email-address"
+          />
+          <TextInput
+            style={RegisterStyles.input}
+            placeholder="username"
+            returnKeyType="done"
+          />
+          <TextInput
+            style={RegisterStyles.input}
+            placeholder="password"
+            returnKeyType="done"
+            secureTextEntry={true}
+          />
+          <TextInput
+            style={RegisterStyles.input}
+            placeholder="confirm password"
+            returnKeyType="done"
+            secureTextEntry={true}
+          />
+          <View style={RegisterStyles.submitContainer}>
+            <Pressable style={RegisterStyles.button}>
+              <Text style={RegisterStyles.submitFont}>Submit</Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );

@@ -6,6 +6,7 @@ import {
   Button,
   TextInput,
   TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
 
 import { useDispatch } from 'react-redux';
@@ -38,8 +39,14 @@ export const Login = ({ navigation }) => {
           placeholder="password"
           returnKeyType="done"
         />
-        <Button title="Login" onPress={handleLogin} />
-        <Button title="Register" onPress={handleRegister} />
+        <View style={LoginStyles.buttonContainer}>
+          <Pressable onPress={handleRegister}>
+            <Text style={LoginStyles.buttonFont}>Register</Text>
+          </Pressable>
+          <Pressable onPress={handleLogin}>
+            <Text style={LoginStyles.buttonFont}>Login</Text>
+          </Pressable>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
