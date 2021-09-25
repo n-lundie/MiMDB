@@ -10,11 +10,10 @@ const permissions = require('./authentication/permissions');
 
 const { resolvers } = require('./model/db');
 const { typeDefs } = require('./model/types');
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const port = 4000;
 const app = express();
-
-const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 app.use(
   expressJwt({

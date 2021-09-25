@@ -40,7 +40,7 @@ const resolvers = {
         return jwt.sign(
           { 'http://localhost:4000/graphql': { uid: user.uid } },
           'this_is_a_secret',
-          { algorithm: 'HS256', subject: `${user.uid}`, expiresIn: '1h' }
+          { algorithm: 'HS256', subject: `${user.uid}`, expiresIn: '2m' }
         );
       } else {
         return 'invalid login details';
