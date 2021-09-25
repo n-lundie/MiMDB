@@ -37,11 +37,9 @@ const resolvers = {
         },
       });
       if (user) {
-        return jwt.sign(
-          { 'http://localhost:4000/graphql': { uid: user.uid } },
-          'this_is_a_secret',
-          { algorithm: 'HS256', subject: `${user.uid}`, expiresIn: '2m' }
-        );
+        return jwt.sign({ sub: user.uid }, 'this_is_a_secret', {
+          expiresIn: '15s',
+        });
       } else {
         return 'invalid login details';
       }

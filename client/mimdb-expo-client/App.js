@@ -1,3 +1,7 @@
+// IMPORTANT:
+//  This is the root component!
+//  Display functionality has been passed down mimdb.js
+//  DO NOT MODIFY THIS COMPONENT UNLESS ABSOLUTELY NECCESSARY
 import 'react-native-gesture-handler';
 import React from 'react';
 

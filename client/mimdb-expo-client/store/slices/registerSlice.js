@@ -2,28 +2,32 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const loginSlice = createSlice({
-  name: 'login',
+const registerSlice = createSlice({
+  name: 'register',
 
   // Set initial state
   initialState: {
     email: '',
     password: '',
+    confirm: '',
   },
 
   // Set reducers. These are converted to actions
   reducers: {
-    updateEmail: (state, action) => {
+    setEmail: (state, action) => {
       state.email = action.payload;
     },
-    updatePassword: (state, action) => {
+    setPassword: (state, action) => {
       state.password = action.payload;
+    },
+    setConfirm: (state, action) => {
+      state.confirm = action.payload;
     },
   },
 });
 
 // Export actions for use in components
-export const { updateEmail, updatePassword } = loginSlice.actions;
+export const { setEmail, setPassword, setConfirm } = registerSlice.actions;
 
 // Export reducer for use in store.js
-export default loginSlice.reducer;
+export default registerSlice.reducer;
