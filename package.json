@@ -2,13 +2,11 @@
   "name": "mimdb",
   "version": "1.0.0",
   "description": "",
-  
   "author": "",
   "license": "ISC",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0"
   },
@@ -16,5 +14,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "graphql-middleware": "^6.1.6",
+    "graphql-shield": "^7.5.0"
   }
 }

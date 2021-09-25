@@ -29,7 +29,7 @@ const resolvers = {
   },
 
   Mutation: {
-    async login(parent, { email, password }) {
+    login: async (parent, { email, password }) => {
       const user = await prisma.user.findFirst({
         where: {
           email,
