@@ -8,6 +8,16 @@ const typeDefs = gql`
     password: String!
   }
 
+  type RegRes {
+    status: Boolean!
+    user: User
+  }
+
+  type LoginRes {
+    status: Boolean!
+    token: String
+  }
+
   type Query {
     users: [User]
     user(uid: Int!): User
@@ -15,7 +25,13 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    login(email: String!, password: String!): String
+    login(email: String!, password: String!): LoginRes!
+    register(
+      email: String!
+      name: String!
+      password: String!
+      confirm: String!
+    ): RegRes!
   }
 `;
 
