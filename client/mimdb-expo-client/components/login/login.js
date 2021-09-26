@@ -14,6 +14,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { updateEmail, updatePassword } from '../../store/slices/loginSlice';
 
+// Provides queries to make to the backend
+import { ApiService } from '../../utilities/ApiService';
+import { TRY_LOGIN } from '../../utilities/ApiService';
+
+// Import useQuery to make api queries
+import { useMutation } from '@apollo/client';
+
 // Import styles
 import { LoginStyles } from './login.styles';
 
@@ -23,11 +30,13 @@ export const Login = ({ navigation }) => {
   const email = useSelector((state) => state.login.email);
   const password = useSelector((state) => state.login.password);
 
+  // Call useMutation to allow interaction with backend
+  const [tryLogin, { data, loading, error }] = useMutation(TRY_LOGIN);
+
   // Invoke useDispatch to allow use of actions
   const dispatch = useDispatch();
 
-  // Create handlers for user actions:
-
+  /* Create handlers for user actions: */
   // Handle change of email input, first arg is value of TextInput
   const handleEmail = (text) => {
     // Invoke action whose arg is the payload
@@ -44,7 +53,11 @@ export const Login = ({ navigation }) => {
   };
 
   // Handle "Login" button press
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    const res = tryLogin({ variables: { email: email, password: password } });
+    dispatch(updateEmail(''));
+    dispatch(updatePassword(''));
+  };
 
   // Handle "Register" button press
   const handleRegister = () => {
@@ -57,11 +70,13 @@ export const Login = ({ navigation }) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       {/* Contaier View Element */}
       <View style={LoginStyles.view}>
-        <Text>Login</Text>
+        <Text>{data ? data : ''}</Text>
+        <Text>{loading ? 'Logging in...' : 'Login'}</Text>
         {/* Email input field */}
         <TextInput
           onChangeText={handleEmail}
           style={LoginStyles.input}
+          keyboardType="email-address"
           placeholder="email"
           returnKeyType="done"
         />

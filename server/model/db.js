@@ -41,9 +41,9 @@ const resolvers = {
   Mutation: {
     // Login to existing account
     login: async (parent, { email, password }) => {
+      console.log('login');
       // Check input is a valid email
       const emailValidation = email.match(emailPattern);
-      console.log(inputValidation);
 
       if (emailValidation && emailValidation[0] === email) {
         // Find account with given email
