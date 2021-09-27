@@ -4,7 +4,7 @@
 import React from 'react';
 
 // React native components
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 // React Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,15 +14,26 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 // Import state: useSelector and slice reducers
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+// REMOVE THIS! testing logout
+import { unAuth } from '../../store/authSlice';
 
 // Import app components
 import { Login } from '../Login/Login';
+import { Register } from '../Register/Register';
 
 export const Main = (props) => {
   // Assign state to local variables
   const isAuth = useSelector((state) => state.auth.isAuth);
   const token = useSelector((state) => state.auth.token);
+
+  // REMOVE THIS! testing logout
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    const delAuth = unAuth();
+    dispatch(delAuth);
+  };
 
   return (
     // Wrap entire app in NavContainer to allow navigation
@@ -33,6 +44,9 @@ export const Main = (props) => {
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
         >
           <Text>{token}</Text>
+          <Button title="Logout" onPress={handleLogout}>
+            Logout
+          </Button>
         </View>
       ) : (
         <Stack.Navigator
@@ -40,6 +54,7 @@ export const Main = (props) => {
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

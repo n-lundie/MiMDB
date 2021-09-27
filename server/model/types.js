@@ -10,7 +10,7 @@ const typeDefs = gql`
 
   type RegRes {
     status: Boolean!
-    user: User
+    token: String
   }
 
   type LoginRes {

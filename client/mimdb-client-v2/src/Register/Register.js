@@ -6,62 +6,73 @@ import {
   View,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   Keyboard,
   Pressable,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 // Import state: useSelector and/or slice actions
 import { useSelector, useDispatch } from 'react-redux';
 import {
   updateEmail,
+  updateName,
   updatePassword,
+  updateConfirm,
   valid,
   invalid,
-} from '../../store/loginSlice';
+} from '../../store/registerSlice';
 import { doAuth } from '../../store/authSlice';
 
-// Import Apollo client and gql queries: useMutation and/or useQuery, TRY_LOGIN
+// Import Apollo client and gql queries: useMutation, TRY_REGISTER
 import { useMutation } from '@apollo/client';
-import { TRY_LOGIN } from '../../model/loginModel';
+import { TRY_REGISTER } from '../../model/registerModel';
 
 // Import styles
 import { styles } from '../../styles/styles';
 import { loginStyles } from '../../styles/loginStyles';
 
 // Destructure "navigation" to allow use of nav functions
-export const Login = ({ navigation }) => {
+export const Register = ({ navigation }) => {
   // Assign state to local variables
-  const loginForm = useSelector((state) => state.login);
+  const regForm = useSelector((state) => state.register);
   const dispatch = useDispatch();
 
-  // Create mutation variables using gql query
-  const [tryLogin, { data, loading, error }] = useMutation(TRY_LOGIN);
+  // Create mutation variables using gql queries
+  const [tryRegister, { data, loading, error }] = useMutation(TRY_REGISTER); // <-- use gql query as arg
 
-  // IMPORTANT: handle query/mutation responses inside useEffect
-
-  // If tryLogin returns true, set isAuth state
+  // Handle query/mutation responses with useEffect
   useEffect(() => {
-    // If login succeed, reset state, set auth
-    if (data && data.login.status) {
+    // If register succeed, reset state, set auth
+    if (data && data.register.status) {
       // Clear state
       const clearEmail = updateEmail('');
       dispatch(clearEmail);
+      const clearName = updateName('');
+      dispatch(clearName);
       const clearPassword = updatePassword('');
       dispatch(clearPassword);
+      const clearConfirm = updateConfirm('');
+      dispatch(clearConfirm);
       dispatch(valid());
 
       // Set isAuth
-      const newAuth = doAuth(data.login.token);
+      const newAuth = doAuth(data.register.token);
       dispatch(newAuth);
     }
-    // If login fail, set invalid login
-    if (data && !data.login.status) {
+    // If register fail, set invalid details
+    if (data && !data.register.status) {
+      console.log('data', data);
       dispatch(invalid());
     }
   }, [data]);
 
   /* HANDLER FUNCTIONS */
+  // Handle change of name input
+  const handleName = (text) => {
+    const newNameState = updateName(text);
+    dispatch(newNameState);
+  };
+
   // Handle change of email input
   const handleEmail = (text) => {
     const newEmailState = updateEmail(text);
@@ -74,16 +85,23 @@ export const Login = ({ navigation }) => {
     dispatch(newPasswordState);
   };
 
-  // Handle Register Press
-  const handleRegister = () => {
-    navigation.navigate('Register');
+  // Handle change of password input
+  const handleConfirm = (text) => {
+    const newConfirmState = updateConfirm(text);
+    dispatch(newConfirmState);
   };
 
-  // Handle Login Press
-  const handleLogin = () => {
-    // Call tryLogin and pass email/password state as variables
-    tryLogin({
-      variables: { email: loginForm.email, password: loginForm.password },
+  // Handle Submit press
+  const handleSubmit = () => {
+    // Call tryRegister and pass regForm state as variables
+    console.log(regForm);
+    tryRegister({
+      variables: {
+        email: regForm.email,
+        name: regForm.name,
+        password: regForm.password,
+        confirm: regForm.confirm,
+      },
     });
   };
 
@@ -95,12 +113,19 @@ export const Login = ({ navigation }) => {
         {/* HEADER */}
         <View style={loginStyles.header}>
           <Text style={loginStyles.title}>
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Submitting...' : 'Register'}
           </Text>
-          <Text>{loginForm.valid ? '' : 'invalid login'}</Text>
+          <Text>{regForm.valid ? '' : 'invalid details'}</Text>
         </View>
         {/* FORM CONTAINER */}
         <View style={styles.formContainer}>
+          <TextInput
+            style={styles.formInput}
+            placeholder="name"
+            onChangeText={handleName}
+            keyboardType="default"
+            returnKeyType="next"
+          />
           <TextInput
             style={styles.formInput}
             placeholder="email"
@@ -116,13 +141,23 @@ export const Login = ({ navigation }) => {
             returnKeyType="done"
             secureTextEntry={true}
           />
+          <TextInput
+            style={styles.formInput}
+            placeholder="confirm password"
+            onChangeText={handleConfirm}
+            keyboardType="default"
+            returnKeyType="done"
+            secureTextEntry={true}
+          />
           {/* BUTTON CONTAINER */}
-          <View style={loginStyles.buttonContainer}>
-            <Pressable onPress={handleRegister}>
-              <Text style={styles.buttonText}>Register</Text>
-            </Pressable>
-            <Pressable onPress={handleLogin}>
-              <Text style={styles.buttonText}>Login</Text>
+          <View
+            style={[
+              loginStyles.buttonContainer,
+              { flexDirection: 'row-reverse' },
+            ]}
+          >
+            <Pressable onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Submit</Text>
             </Pressable>
           </View>
         </View>

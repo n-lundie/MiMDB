@@ -17,6 +17,7 @@ export const loginStyles = StyleSheet.create({
     width: 250,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 10,
     // backgroundColor: 'green',
   },
 });

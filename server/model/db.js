@@ -69,11 +69,16 @@ const resolvers = {
           return { status: true, token };
         }
       }
+      console.log('invalid login');
       return { status: false };
     },
 
-    // Register new account
+    // Register new account and authorise
     register: async (parent, { email, name, password, confirm }) => {
+      console.log(email, name, password, confirm);
+      // Check input is valid email
+      const emailValidation = email.match(emailPattern);
+
       // Check password match
       const passwordCheck = password === confirm;
 
@@ -84,7 +89,12 @@ const resolvers = {
         },
       });
 
-      if (passwordCheck && !emailCheck) {
+      if (
+        emailValidation &&
+        emailValidation[0] === email &&
+        passwordCheck &&
+        !emailCheck
+      ) {
         console.log('valid register');
         const newUser = await prisma.user.create({
           data: {
@@ -94,7 +104,15 @@ const resolvers = {
           },
         });
 
-        return { status: true, user: newUser };
+        const token = jwt.sign(
+          { sub: newUser.uid },
+          process.env.WEB_TOKEN_SECRET,
+          {
+            expiresIn: '15s',
+          }
+        );
+
+        return { status: true, token };
       } else {
         console.log('invalid register');
         return { status: false };
