@@ -16,16 +16,12 @@ const authSlice = createSlice({
 
   // Create reducers to handle state changes
   reducers: {
-    doAuth: (state) => {
+    doAuth: (state, action) => {
       state.isAuth = true;
+      state.token = action.payload;
     },
     unAuth: (state) => {
       state.isAuth = false;
-    },
-    setToken: (state, action) => {
-      state.token = action.payload;
-    },
-    delToken: (state) => {
       state.token = '';
     },
   },

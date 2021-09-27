@@ -1,5 +1,5 @@
 // REQUIRED
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Import react native components
 import {
@@ -14,14 +14,15 @@ import {
 // Import state: useSelector and/or slice actions
 import { useSelector, useDispatch } from 'react-redux';
 import { updateEmail, updatePassword } from '../../store/loginSlice';
-import { doAuth, setToken } from '../../store/authSlice';
+import { doAuth } from '../../store/authSlice';
 
 // Import Apollo client and gql queries: useMutation and/or useQuery, TRY_LOGIN
 import { useMutation } from '@apollo/client';
 import { TRY_LOGIN } from '../../model/loginModel';
 
 // Import styles
-// <-- Import styles here
+import { styles } from '../../styles/styles';
+import { loginStyles } from '../../styles/loginStyles';
 
 // Destructure "navigation" to allow use of nav functions
 export const Login = ({ navigation }) => {
@@ -31,6 +32,16 @@ export const Login = ({ navigation }) => {
 
   // Create mutation variables useing gql query
   const [tryLogin, { data, loading, error }] = useMutation(TRY_LOGIN);
+
+  // If tryLogin returns true, set isAuth state
+  useEffect(() => {
+    if (data && data.login.status) {
+      console.log('valid log in');
+      console.log('data', data);
+      const newAuth = doAuth(data.login.token);
+      dispatch(newAuth);
+    }
+  }, [data]);
 
   /* HANDLER FUNCTIONS */
   // Handle change of email input
@@ -56,41 +67,40 @@ export const Login = ({ navigation }) => {
     });
   };
 
-  // If tryLogin returns true, set isAuth state
-  if (data && data.login.state) {
-    dispatch(setToken(data.login.token));
-    dispatch(doAuth());
-  }
-
   return (
     // Wrap in "Touchable.." to close keyboard on press
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       {/* Container View */}
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <View>
-          <Text>{loading ? 'Logging in...' : 'Login'}</Text>
+      <View style={styles.container}>
+        <View style={loginStyles.header}>
+          <Text style={loginStyles.title}>
+            {loading ? 'Logging in...' : 'Login'}
+          </Text>
         </View>
-        <View>
+        <View style={styles.formContainer}>
           <TextInput
+            style={styles.formInput}
             placeholder="email"
             onChangeText={handleEmail}
             keyboardType="email-address"
             returnKeyType="next"
           />
           <TextInput
+            style={styles.formInput}
             placeholder="password"
             onChangeText={handlePassword}
             keyboardType="default"
             returnKeyType="done"
+            secureTextEntry={true}
           />
-        </View>
-        <View>
-          <Pressable>
-            <Text>Register</Text>
-          </Pressable>
-          <Pressable>
-            <Text>Login</Text>
-          </Pressable>
+          <View style={loginStyles.buttonContainer}>
+            <Pressable>
+              <Text style={styles.buttonText}>Register</Text>
+            </Pressable>
+            <Pressable onPress={handleLogin}>
+              <Text style={styles.buttonText}>Login</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
