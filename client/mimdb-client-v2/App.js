@@ -1,21 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
+// Import gesture handler
+import 'react-native-gesture-handler';
+
+// REQUIRED IN ALL COMPONENTS
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+
+// Apollo client
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://192.168.0.202:4000/graphql',
+  cache: new InMemoryCache(),
+});
+
+// Redux
+import { Provider } from 'react-redux';
+import store from './store/store';
+
+// Import Main app component
+import { Main } from './src/Main/Main';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    </ApolloProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
