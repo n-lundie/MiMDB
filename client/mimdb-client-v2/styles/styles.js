@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 50,
     paddingHorizontal: 20,
+    backgroundColor: '#151515',
   },
 
   // Used for View element containing form
@@ -22,15 +23,38 @@ export const styles = StyleSheet.create({
 
   // TextInput style for Login/Register form
   formInput: {
-    width: 250,
-    height: 45,
-    borderColor: 'red',
-    borderWidth: 1,
-    marginVertical: 10,
+    fontSize: 18,
+    color: '#FFF',
+    width: 275,
+    height: 50,
+    paddingHorizontal: 5,
+    borderBottomColor: '#FF3535',
+    borderBottomWidth: 1.5,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: 'hsla(255, 100%,100%, 0.1)',
+    marginVertical: 15,
   },
 
   // Pressable style for form
-  buttonText: {
-    fontSize: 25,
+  buttonTextRed: {
+    fontSize: 20,
+    color: '#FFF',
+  },
+  buttonRed: {
+    width: 100,
+    height: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FF3535',
+    borderRadius: 25,
+  },
+  buttonGrey: {
+    width: 100,
+    height: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#3F3F3F',
+    borderRadius: 25,
   },
 });

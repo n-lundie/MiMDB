@@ -111,9 +111,11 @@ export const Register = ({ navigation }) => {
       {/* COMP CONTAINER */}
       <View style={styles.container}>
         {/* HEADER */}
-        <View style={loginStyles.header}>
+        <View
+          style={[loginStyles.header, { width: 275, alignItems: 'flex-start' }]}
+        >
           <Text style={loginStyles.title}>
-            {loading ? 'Submitting...' : 'Register'}
+            {loading ? 'Submitting...' : 'SIGN UP'}
           </Text>
           <Text>{regForm.valid ? '' : 'invalid details'}</Text>
         </View>
@@ -122,6 +124,7 @@ export const Register = ({ navigation }) => {
           <TextInput
             style={styles.formInput}
             placeholder="name"
+            placeholderTextColor="hsla(255, 100%, 100%, 0.5)"
             onChangeText={handleName}
             keyboardType="default"
             returnKeyType="next"
@@ -129,6 +132,7 @@ export const Register = ({ navigation }) => {
           <TextInput
             style={styles.formInput}
             placeholder="email"
+            placeholderTextColor="hsla(255, 100%, 100%, 0.5)"
             onChangeText={handleEmail}
             keyboardType="email-address"
             returnKeyType="next"
@@ -136,6 +140,7 @@ export const Register = ({ navigation }) => {
           <TextInput
             style={styles.formInput}
             placeholder="password"
+            placeholderTextColor="hsla(255, 100%, 100%, 0.5)"
             onChangeText={handlePassword}
             keyboardType="default"
             returnKeyType="done"
@@ -144,6 +149,7 @@ export const Register = ({ navigation }) => {
           <TextInput
             style={styles.formInput}
             placeholder="confirm password"
+            placeholderTextColor="hsla(255, 100%, 100%, 0.5)"
             onChangeText={handleConfirm}
             keyboardType="default"
             returnKeyType="done"
@@ -156,8 +162,8 @@ export const Register = ({ navigation }) => {
               { flexDirection: 'row-reverse' },
             ]}
           >
-            <Pressable onPress={handleSubmit}>
-              <Text style={styles.buttonText}>Submit</Text>
+            <Pressable style={styles.buttonRed} onPress={handleSubmit}>
+              <Text style={styles.buttonTextRed}>Submit</Text>
             </Pressable>
           </View>
         </View>

@@ -104,6 +104,7 @@ export const Login = ({ navigation }) => {
           <TextInput
             style={styles.formInput}
             placeholder="email"
+            placeholderTextColor="hsla(255, 100%, 100%, 0.5)"
             onChangeText={handleEmail}
             keyboardType="email-address"
             returnKeyType="next"
@@ -111,6 +112,7 @@ export const Login = ({ navigation }) => {
           <TextInput
             style={styles.formInput}
             placeholder="password"
+            placeholderTextColor="hsla(255, 100%, 100%, 0.5)"
             onChangeText={handlePassword}
             keyboardType="default"
             returnKeyType="done"
@@ -118,11 +120,11 @@ export const Login = ({ navigation }) => {
           />
           {/* BUTTON CONTAINER */}
           <View style={loginStyles.buttonContainer}>
-            <Pressable onPress={handleRegister}>
-              <Text style={styles.buttonText}>Register</Text>
+            <Pressable style={styles.buttonGrey} onPress={handleRegister}>
+              <Text style={styles.buttonTextRed}>Register</Text>
             </Pressable>
-            <Pressable onPress={handleLogin}>
-              <Text style={styles.buttonText}>Login</Text>
+            <Pressable style={styles.buttonRed} onPress={handleLogin}>
+              <Text style={styles.buttonTextRed}>Login</Text>
             </Pressable>
           </View>
         </View>

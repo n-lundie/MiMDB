@@ -7,17 +7,18 @@ export const loginStyles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50,
+    marginTop: 100,
     marginBottom: 20,
   },
   title: {
     fontSize: 40,
+    color: '#FF3535',
   },
   buttonContainer: {
-    width: 250,
+    width: 275,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 30,
     // backgroundColor: 'green',
   },
 });
