@@ -46,12 +46,15 @@ const resolvers = {
       const emailValidation = email.match(emailPattern);
 
       if (emailValidation && emailValidation[0] === email) {
+        console.log('valid');
+
         // Find account with given email
         const user = await prisma.user.findUnique({
           where: {
             email,
           },
         });
+        console.log(user);
 
         // If user exists and password is valid
         if (user && user.password === password) {

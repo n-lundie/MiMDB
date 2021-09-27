@@ -38,6 +38,8 @@ export const Login = (props) => {
     tryLogin({ variables: { email: 'noah@test.com', password: 'pass' } });
   };
 
+  if (error) console.log('error', error);
+
   // useEffect(() => {
   //   console.log('data', data);
   // }, []);
