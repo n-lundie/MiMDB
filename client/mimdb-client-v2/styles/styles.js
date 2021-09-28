@@ -57,4 +57,30 @@ export const styles = StyleSheet.create({
     backgroundColor: '#3F3F3F',
     borderRadius: 25,
   },
+
+  // Standard box shadow
+  boxShadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+  },
+
+  // Home title font
+  homeTitle: {
+    fontSize: 26,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.5,
+    shadowOffset: { height: 5 },
+  },
+  homeSubTitle: {
+    fontSize: 20,
+    color: 'hsla(255, 100%, 100%, 0.5)',
+  },
 });

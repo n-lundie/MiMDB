@@ -46,7 +46,17 @@ export const Main = (props) => {
       {isAuth ? (
         <Tab.Navigator
           initialRouteName="Add"
-          screenOptions={{ headerShown: false }}
+          screenOptions={{
+            headerShown: false,
+            tabBarStyle: {
+              height: 90,
+              borderTopWidth: 1,
+              borderTopColor: '#FF3535',
+              backgroundColor: 'black',
+              shadowColor: '#000',
+              shadowOpacity: 1,
+            },
+          }}
         >
           <Tab.Screen name="Add" component={Home} />
         </Tab.Navigator>
