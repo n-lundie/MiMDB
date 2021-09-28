@@ -85,6 +85,7 @@ export const Home = ({ navigation }) => {
             maxHeight: 90,
             minHeight: 90,
             overflow: 'hidden',
+            zIndex: 0,
             // backgroundColor: 'blue',
           }}
         >

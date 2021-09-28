@@ -13,6 +13,7 @@ import { options } from '../../model/homeModel';
 import { styles } from '../../styles/styles';
 
 // Import app components
+import { SearchResults } from './SearchResults';
 
 export const SearchBar = (props) => {
   // Assign state to local variables
@@ -66,7 +67,7 @@ export const SearchBar = (props) => {
   }, [home.searchRes]);
 
   return (
-    <View>
+    <View style={{ zIndex: 1 }}>
       <TextInput
         style={home.searchRes.length ? styles.searchWithRes : styles.search}
         placeholder="search"
@@ -75,7 +76,7 @@ export const SearchBar = (props) => {
         onChangeText={handleSearch}
       />
       {home.searchRes.length ? (
-        <Text>{home.searchRes[0].name}</Text>
+        <SearchResults results={home.searchRes} />
       ) : (
         <View></View>
       )}
