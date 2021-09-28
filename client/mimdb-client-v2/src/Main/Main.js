@@ -9,9 +9,12 @@ import { View, Text, Button } from 'react-native';
 // React Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 // Create Stack navigation element
 const Stack = createStackNavigator();
+// Create Tab navigation element
+const Tab = createBottomTabNavigator();
 
 // Import state: useSelector and slice reducers
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,6 +25,7 @@ import { unAuth } from '../../store/authSlice';
 // Import app components
 import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
+import { Home } from '../Home/Home';
 
 export const Main = (props) => {
   // Assign state to local variables
@@ -40,14 +44,12 @@ export const Main = (props) => {
     <NavigationContainer>
       {/* Check if user isAuth: return Login or Home */}
       {isAuth ? (
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+        <Tab.Navigator
+          initialRouteName="Add"
+          screenOptions={{ headerShown: false }}
         >
-          <Text>{token}</Text>
-          <Button title="Logout" onPress={handleLogout}>
-            Logout
-          </Button>
-        </View>
+          <Tab.Screen name="Add" component={Home} />
+        </Tab.Navigator>
       ) : (
         <Stack.Navigator
           initialRouteName="Login"

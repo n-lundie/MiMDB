@@ -41,20 +41,16 @@ const resolvers = {
   Mutation: {
     // Login to existing account
     login: async (parent, { email, password }) => {
-      console.log('login');
       // Check input is a valid email
       const emailValidation = email.match(emailPattern);
 
       if (emailValidation && emailValidation[0] === email) {
-        console.log('valid');
-
         // Find account with given email
         const user = await prisma.user.findUnique({
           where: {
             email,
           },
         });
-        console.log(user);
 
         // If user exists and password is valid
         if (user && user.password === password) {
@@ -66,16 +62,16 @@ const resolvers = {
             }
           );
 
+          console.log('login success', user);
           return { status: true, token };
         }
       }
-      console.log('invalid login');
+      console.log('login fail');
       return { status: false };
     },
 
     // Register new account and authorise
     register: async (parent, { email, name, password, confirm }) => {
-      console.log(email, name, password, confirm);
       // Check input is valid email
       const emailValidation = email.match(emailPattern);
 
@@ -95,7 +91,6 @@ const resolvers = {
         passwordCheck &&
         !emailCheck
       ) {
-        console.log('valid register');
         const newUser = await prisma.user.create({
           data: {
             email,
@@ -112,9 +107,10 @@ const resolvers = {
           }
         );
 
+        console.log('register success', newUser);
         return { status: true, token };
       } else {
-        console.log('invalid register');
+        console.log('register fail');
         return { status: false };
       }
     },

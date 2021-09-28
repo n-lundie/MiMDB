@@ -97,7 +97,9 @@ export const Login = ({ navigation }) => {
           <Text style={loginStyles.title}>
             {loading ? 'Logging in...' : 'Login'}
           </Text>
-          <Text>{loginForm.valid ? '' : 'invalid login'}</Text>
+          <Text style={{ color: '#FFF' }}>
+            {loginForm.valid ? '' : 'invalid login'}
+          </Text>
         </View>
         {/* FORM CONTAINER */}
         <View style={styles.formContainer}>

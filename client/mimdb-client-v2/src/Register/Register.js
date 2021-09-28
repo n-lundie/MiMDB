@@ -117,7 +117,9 @@ export const Register = ({ navigation }) => {
           <Text style={loginStyles.title}>
             {loading ? 'Submitting...' : 'SIGN UP'}
           </Text>
-          <Text>{regForm.valid ? '' : 'invalid details'}</Text>
+          <Text style={{ color: '#FFF' }}>
+            {regForm.valid ? '' : 'invalid details'}
+          </Text>
         </View>
         {/* FORM CONTAINER */}
         <View style={styles.formContainer}>
