@@ -83,4 +83,30 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: 'hsla(255, 100%, 100%, 0.5)',
   },
+
+  // Home search bar
+  search: {
+    textAlign: 'center',
+    fontSize: 15,
+    color: '#FFF',
+    width: 300,
+    height: 35,
+    paddingHorizontal: 5,
+    borderRadius: 25,
+    backgroundColor: 'hsla(255, 100%,100%, 0.1)',
+    marginBottom: 25,
+  },
+
+  searchWithRes: {
+    textAlign: 'center',
+    fontSize: 15,
+    color: '#FFF',
+    width: 300,
+    height: 35,
+    paddingHorizontal: 5,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    backgroundColor: 'hsla(255, 100%,100%, 0.1)',
+    marginBottom: 25,
+  },
 });

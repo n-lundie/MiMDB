@@ -12,6 +12,7 @@ const homeSlice = createSlice({
   initialState: {
     recent: [],
     search: '',
+    searchRes: [],
     current: {},
   },
 
@@ -32,6 +33,12 @@ const homeSlice = createSlice({
     setCurrent: (state, action) => {
       state.current = action.payload;
     },
+    setSearchRes: (state, action) => {
+      state.searchRes = action.payload;
+    },
+    clearSearchRes: (state) => {
+      state.searchRes = [];
+    },
   },
 });
 
@@ -42,6 +49,8 @@ export const {
   updateSearch,
   clearSearch,
   setCurrent,
+  setSearchRes,
+  clearSearchRes,
 } = homeSlice.actions;
 
 // Export reducers to add to store.js

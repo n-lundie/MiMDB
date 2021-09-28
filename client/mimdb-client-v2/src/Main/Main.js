@@ -51,7 +51,7 @@ export const Main = (props) => {
             tabBarStyle: {
               height: 90,
               borderTopWidth: 1,
-              borderTopColor: '#FF3535',
+              // borderTopColor: '#FF3535',
               backgroundColor: 'black',
               shadowColor: '#000',
               shadowOpacity: 1,

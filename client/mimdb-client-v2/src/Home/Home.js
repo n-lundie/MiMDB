@@ -25,19 +25,16 @@ import { styles } from '../../styles/styles';
 
 // Import app components
 import { CarouselMovieItem } from './CarouselMovieItem';
+import { SearchBar } from './SearchBar';
 
 // Destructure "navigation" to allow use of nav functions
 export const Home = ({ navigation }) => {
   // Assign state to local variables
   const recentFilms = useSelector((state) => state.home.recent);
-  const search = useSelector((state) => state.home.search);
   const current = useSelector((state) => state.home.current);
 
   // Invoke dispatch
   const dispatch = useDispatch();
-
-  // Create mutation variables using gql query
-  // const [tryLogin, { data, loading, error }] = useMutation();
 
   // IMPORTANT: handle query/mutation responses inside useEffect
   useEffect(() => {
@@ -76,20 +73,35 @@ export const Home = ({ navigation }) => {
     // --- Wrap in any needed wrap components (e.g. TouchableWithoutFeedback) ---
     // Container
     <View style={[styles.container, { justifyContent: 'flex-start' }]}>
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          maxWidth: 300,
-          minWidth: 100,
-          maxHeight: 100,
-          minHeight: 90,
-          backgroundColor: 'blue',
-        }}
-      >
-        <Text style={styles.homeTitle}>{current ? current.name : ''}</Text>
-        <Text style={styles.homeSubTitle}>{current ? current.date : ''}</Text>
-      </View>
+      <SearchBar />
+
+      {current.name ? (
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            maxWidth: 305,
+            minWidth: 305,
+            maxHeight: 90,
+            minHeight: 90,
+            overflow: 'hidden',
+            // backgroundColor: 'blue',
+          }}
+        >
+          <Text
+            style={
+              current.name.length < 29
+                ? styles.homeTitle
+                : [styles.homeTitle, { fontSize: 22 }]
+            }
+          >
+            {current ? current.name : ''}
+          </Text>
+          <Text style={styles.homeSubTitle}>{current ? current.date : ''}</Text>
+        </View>
+      ) : (
+        <View></View>
+      )}
       {recentFilms ? (
         <View
           style={{
@@ -102,7 +114,7 @@ export const Home = ({ navigation }) => {
               height: 425,
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: 'green',
+              // backgroundColor: 'green',
             }}
           >
             {/* CAROUSEL */}

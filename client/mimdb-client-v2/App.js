@@ -1,6 +1,9 @@
 // Import gesture handler
 import 'react-native-gesture-handler';
 
+// Invoke dotenv.config
+// require('dotenv').config();
+
 // REQUIRED IN ALL COMPONENTS
 import React from 'react';
 
