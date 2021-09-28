@@ -2,7 +2,14 @@
 import React, { useEffect } from 'react';
 
 // Import react native components
-import { View, Text, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Pressable,
+  Image,
+} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 // Import state: useSelector and/or slice actions
@@ -12,6 +19,7 @@ import {
   clearRecent,
   updateSearch,
   clearSearch,
+  clearSearchRes,
   setCurrent,
 } from '../../store/homeSlice';
 
@@ -24,7 +32,7 @@ import { url, options } from '../../model/homeModel';
 import { styles } from '../../styles/styles';
 
 // Import app components
-import { CarouselMovieItem } from './CarouselMovieItem';
+// import { CarouselMovieItem } from './CarouselMovieItem';
 import { SearchBar } from './SearchBar';
 
 // Destructure "navigation" to allow use of nav functions
@@ -48,6 +56,7 @@ export const Home = ({ navigation }) => {
               name: movie.original_title,
               date: movie.release_date.substring(0, 4),
               poster: movie.poster_path,
+              backdrop: movie.backdrop_path,
             };
           });
 
@@ -61,10 +70,31 @@ export const Home = ({ navigation }) => {
   // Handle any query data
   // useEffect(() => {}, []);
 
+  // Carousel item comp
+  const CarouselMovieItem = ({ item, index }) => {
+    return (
+      <Pressable
+        style={ItemContainerStyle}
+        onPress={() => {
+          navigation.navigate('Survey');
+        }}
+      >
+        <Image
+          source={{ url: `https://image.tmdb.org/t/p/original/${item.poster}` }}
+          style={ItemImageStyle}
+        />
+      </Pressable>
+    );
+  };
+
   /* HANDLER FUNCTIONS */
   // Update current on swipe to new film
   const handleSwipe = (index) => {
     dispatch(setCurrent(recentFilms[index]));
+  };
+
+  handlePress = () => {
+    navigation.navigate('Survey');
   };
 
   const isCarousel = React.useRef(null);
@@ -72,78 +102,92 @@ export const Home = ({ navigation }) => {
   return (
     // --- Wrap in any needed wrap components (e.g. TouchableWithoutFeedback) ---
     // Container
-    <View style={[styles.container, { justifyContent: 'flex-start' }]}>
-      <SearchBar />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={[styles.container, { justifyContent: 'flex-start' }]}>
+        <SearchBar />
 
-      {current.name ? (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            maxWidth: 305,
-            minWidth: 305,
-            maxHeight: 90,
-            minHeight: 90,
-            overflow: 'hidden',
-            zIndex: 0,
-            // backgroundColor: 'blue',
-          }}
-        >
-          <Text
-            style={
-              current.name.length < 29
-                ? styles.homeTitle
-                : [styles.homeTitle, { fontSize: 22 }]
-            }
-          >
-            {current ? current.name : ''}
-          </Text>
-          <Text style={styles.homeSubTitle}>{current ? current.date : ''}</Text>
-        </View>
-      ) : (
-        <View></View>
-      )}
-      {recentFilms ? (
-        <View
-          style={{
-            alignItems: 'center',
-          }}
-        >
-          {/* CAROUSEL VIEW CONTAINER */}
+        {current.name ? (
           <View
             style={{
-              height: 425,
               alignItems: 'center',
               justifyContent: 'center',
-              // backgroundColor: 'green',
+              maxWidth: 305,
+              minWidth: 305,
+              maxHeight: 90,
+              minHeight: 90,
+              overflow: 'hidden',
+              zIndex: 0,
+              // backgroundColor: 'blue',
             }}
           >
-            {/* CAROUSEL */}
-            <Carousel
-              ref={isCarousel}
-              data={recentFilms}
-              renderItem={CarouselMovieItem}
-              onSnapToItem={handleSwipe}
-              itemWidth={270}
-              itemHeight={400}
-              sliderWidth={400}
-              sliderHeight={443}
-              inactiveSlideScale={0.75}
-              contentContainerCustomStyle={{
-                alignItems: 'center',
-                shadowColor: '#000',
-                shadowOpacity: 0.7,
-                shadowRadius: 5,
-                shadowOffset: {
-                  height: 5,
-                },
-              }}
-            />
+            <Text
+              style={
+                current.name.length < 29
+                  ? styles.homeTitle
+                  : [styles.homeTitle, { fontSize: 22 }]
+              }
+            >
+              {current ? current.name : ''}
+            </Text>
+            <Text style={styles.homeSubTitle}>
+              {current ? current.date : ''}
+            </Text>
           </View>
-        </View>
-      ) : (
-        'no movies'
-      )}
-    </View>
+        ) : (
+          <View></View>
+        )}
+        {recentFilms ? (
+          <View
+            style={{
+              alignItems: 'center',
+            }}
+          >
+            {/* CAROUSEL VIEW CONTAINER */}
+            <View
+              style={{
+                height: 425,
+                alignItems: 'center',
+                justifyContent: 'center',
+                // backgroundColor: 'green',
+              }}
+            >
+              {/* CAROUSEL */}
+              <Carousel
+                ref={isCarousel}
+                data={recentFilms}
+                renderItem={CarouselMovieItem}
+                onSnapToItem={handleSwipe}
+                itemWidth={270}
+                itemHeight={400}
+                sliderWidth={400}
+                sliderHeight={443}
+                inactiveSlideScale={0.75}
+                contentContainerCustomStyle={{
+                  alignItems: 'center',
+                  shadowColor: '#000',
+                  shadowOpacity: 0.7,
+                  shadowRadius: 5,
+                  shadowOffset: {
+                    height: 5,
+                  },
+                }}
+              />
+            </View>
+          </View>
+        ) : (
+          'no movies'
+        )}
+      </View>
+    </TouchableWithoutFeedback>
   );
+};
+
+const ItemContainerStyle = {
+  width: 270,
+  height: 400,
+};
+
+const ItemImageStyle = {
+  flex: 1,
+  borderRadius: 10,
 };

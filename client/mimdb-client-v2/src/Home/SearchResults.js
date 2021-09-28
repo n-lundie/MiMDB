@@ -25,7 +25,7 @@ export const SearchResults = (props) => {
 };
 
 const resContainerStyle = {
-  backgroundColor: 'hsla(0, 0%, 25%, 0.99)',
+  backgroundColor: 'hsla(0, 0%, 18%, 0.99)',
   maxHeight: 350,
   width: 300,
   paddingHorizontal: 2,

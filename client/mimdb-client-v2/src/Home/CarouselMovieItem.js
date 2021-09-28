@@ -2,6 +2,8 @@ import React from 'react';
 
 import { View, Image, Pressable } from 'react-native';
 
+import { useSelector } from 'react-redux';
+
 import { styles } from '../../styles/styles';
 
 export const CarouselMovieItem = ({ item, index }) => {

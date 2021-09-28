@@ -19,25 +19,15 @@ const Tab = createBottomTabNavigator();
 // Import state: useSelector and slice reducers
 import { useSelector, useDispatch } from 'react-redux';
 
-// REMOVE THIS! testing logout
-import { unAuth } from '../../store/authSlice';
-
 // Import app components
 import { Login } from '../Login/Login';
 import { Register } from '../Register/Register';
-import { Home } from '../Home/Home';
+import { HomeNav } from '../Home/HomeNav';
 
 export const Main = (props) => {
   // Assign state to local variables
   const isAuth = useSelector((state) => state.auth.isAuth);
   const token = useSelector((state) => state.auth.token);
-
-  // REMOVE THIS! testing logout
-  const dispatch = useDispatch();
-  const handleLogout = () => {
-    const delAuth = unAuth();
-    dispatch(delAuth);
-  };
 
   return (
     // Wrap entire app in NavContainer to allow navigation
@@ -58,7 +48,7 @@ export const Main = (props) => {
             },
           }}
         >
-          <Tab.Screen name="Add" component={Home} />
+          <Tab.Screen name="Add" component={HomeNav} />
         </Tab.Navigator>
       ) : (
         <Stack.Navigator

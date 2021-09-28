@@ -108,5 +108,7 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 25,
     backgroundColor: 'hsla(255, 100%,100%, 0.1)',
     marginBottom: 25,
+    borderBottomColor: '#FF3535',
+    borderBottomWidth: 1.5,
   },
 });
