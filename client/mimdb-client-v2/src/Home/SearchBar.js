@@ -67,7 +67,9 @@ export const SearchBar = (props) => {
   }, [home.searchRes]);
 
   return (
-    <View style={{ zIndex: 1 }}>
+    <View
+      style={{ zIndex: 2, alignItems: 'center', justifyContent: 'flex-end' }}
+    >
       <TextInput
         style={home.searchRes.length ? styles.searchWithRes : styles.search}
         placeholder="search"

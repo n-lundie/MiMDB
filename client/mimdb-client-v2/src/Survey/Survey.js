@@ -67,6 +67,7 @@ export const Survey = (props) => {
         </Text>
       </View>
       <Carousel
+        removeClippedSubviews={false}
         ref={isCarousel}
         data={questions}
         renderItem={CarouselQuestionItem}

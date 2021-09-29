@@ -40,6 +40,9 @@ export const Home = ({ navigation }) => {
   // Assign state to local variables
   const recentFilms = useSelector((state) => state.home.recent);
   const current = useSelector((state) => state.home.current);
+  const search = useSelector((state) => state.home);
+
+  const isCarousel = React.useRef(null);
 
   // Invoke dispatch
   const dispatch = useDispatch();
@@ -70,6 +73,10 @@ export const Home = ({ navigation }) => {
   // Handle any query data
   // useEffect(() => {}, []);
 
+  useEffect(() => {
+    console.log(search);
+  }, [search]);
+
   // Carousel item comp
   const CarouselMovieItem = ({ item, index }) => {
     return (
@@ -93,18 +100,38 @@ export const Home = ({ navigation }) => {
     dispatch(setCurrent(recentFilms[index]));
   };
 
-  handlePress = () => {
-    navigation.navigate('Survey');
+  // Close keyboard and clear search on press
+  const handlePress = () => {
+    Keyboard.dismiss();
+    dispatch(clearSearch());
+    dispatch(clearSearchRes());
   };
-
-  const isCarousel = React.useRef(null);
 
   return (
     // --- Wrap in any needed wrap components (e.g. TouchableWithoutFeedback) ---
     // Container
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={[styles.container, { justifyContent: 'flex-start' }]}>
-        <SearchBar />
+    <TouchableWithoutFeedback onPress={handlePress} accessible={false}>
+      <View
+        style={[
+          styles.container,
+          { justifyContent: 'flex-start', paddingHorizontal: 0, paddingTop: 0 },
+        ]}
+      >
+        <View
+          style={{
+            backgroundColor: '#151515',
+            alignContent: 'center',
+            width: '100%',
+            height: 90,
+            paddingBottom: 5,
+            justifyContent: 'flex-end',
+            shadowColor: '#000',
+            shadowOpacity: 1,
+            zIndex: 2,
+          }}
+        >
+          <SearchBar />
+        </View>
 
         {current.name ? (
           <View
@@ -116,6 +143,7 @@ export const Home = ({ navigation }) => {
               maxHeight: 90,
               minHeight: 90,
               overflow: 'hidden',
+              marginTop: 15,
               zIndex: 0,
               // backgroundColor: 'blue',
             }}

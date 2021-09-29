@@ -25,15 +25,18 @@ export const SearchResults = (props) => {
 };
 
 const resContainerStyle = {
-  backgroundColor: 'hsla(0, 0%, 18%, 0.99)',
+  // backgroundColor: 'hsla(0, 0%, 18%, 0.99)',
+  backgroundColor: '#151515',
   maxHeight: 350,
   width: 300,
   paddingHorizontal: 2,
-  marginTop: 35,
+  marginTop: 38,
   position: 'absolute',
   borderBottomLeftRadius: 5,
   borderBottomRightRadius: 5,
   // backgroundColor: 'green',
+  top: 0,
+  zIndex: 1,
 };
 
 const resItemStyle = {

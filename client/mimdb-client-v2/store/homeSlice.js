@@ -27,11 +27,14 @@ const homeSlice = createSlice({
     updateSearch: (state, action) => {
       state.search = action.payload;
     },
-    clearSearch: (state, action) => {
-      state.seach = '';
+    clearSearch: (state) => {
+      state.search = '';
     },
     setCurrent: (state, action) => {
       state.current = action.payload;
+    },
+    clearCurrent: (state) => {
+      state.current = {};
     },
     setSearchRes: (state, action) => {
       state.searchRes = action.payload;
@@ -49,6 +52,7 @@ export const {
   updateSearch,
   clearSearch,
   setCurrent,
+  clearCurrent,
   setSearchRes,
   clearSearchRes,
 } = homeSlice.actions;

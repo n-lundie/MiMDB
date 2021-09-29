@@ -109,7 +109,7 @@ export const Register = ({ navigation }) => {
     // Wrap in "Touchable.." to close keyboard on press
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       {/* COMP CONTAINER */}
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: '#151515' }]}>
         {/* HEADER */}
         <View
           style={[loginStyles.header, { width: 275, alignItems: 'flex-start' }]}

@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 50,
     paddingHorizontal: 20,
-    backgroundColor: '#151515',
+    backgroundColor: 'hsla(230, 5%, 18%, 1)',
   },
 
   // Used for View element containing form
@@ -90,11 +90,12 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     color: '#FFF',
     width: 300,
-    height: 35,
+    height: 38,
     paddingHorizontal: 5,
     borderRadius: 25,
     backgroundColor: 'hsla(255, 100%,100%, 0.1)',
-    marginBottom: 25,
+    marginBottom: 5,
+    position: 'relative',
   },
 
   searchWithRes: {
@@ -102,13 +103,14 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     color: '#FFF',
     width: 300,
-    height: 35,
+    height: 38,
     paddingHorizontal: 5,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: 'hsla(255, 100%,100%, 0.1)',
-    marginBottom: 25,
+    marginBottom: 5,
     borderBottomColor: '#FF3535',
     borderBottomWidth: 1.5,
+    position: 'relative',
   },
 });
