@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-tools/schema": "^8.2.0",
+    "@prisma/client": "^3.1.1",
+    "apollo-server-core": "^3.3.0",
+    "apollo-server-express": "^3.3.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
+    "graphql": "^15.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "graphql-middleware": "^6.1.6",
+    "graphql-shield": "^7.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13",
+    "prisma": "^3.1.1"
+  },
+  "resolutions": {
+    "graphql": "^15.6.0"
+  }
+
+}
