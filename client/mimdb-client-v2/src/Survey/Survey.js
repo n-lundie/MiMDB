@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import Slider from '@react-native-community/slider';
 
 // Import state
 import { useSelector, useDispatch } from 'react-redux';
-// <-- Import slice actions
+import { setResponse, clearAllResponses } from '../../store/surveySlice';
 
 import { styles } from '../../styles/styles';
 
@@ -13,7 +14,51 @@ import { styles } from '../../styles/styles';
 
 export const Survey = (props) => {
   const movie = useSelector((state) => state.home.current);
+  const questionState = useSelector((state) => state.survey);
+
+  const dispatch = useDispatch();
+
   const isCarousel = React.useRef(null);
+
+  const handleSlide = (val) => {
+    const newVal = setResponse(val, index);
+    dispatch(newVal);
+  };
+
+  const CarouselQuestionItem = ({ item, index }) => {
+    const handleSlide = (val) => {
+      const newVal = setResponse(val, index);
+      dispatch(newVal);
+    };
+    return (
+      <View
+        style={[
+          questionContainerStyle,
+          { paddingTop: 30, paddingHorizontal: 20 },
+        ]}
+      >
+        <Text style={[styles.homeTitle, { fontSize: 25 }]}>{item.text}</Text>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'space-evenly',
+          }}
+        >
+          <Text style={[styles.homeTitle, { fontSize: 150 }]}>
+            {questionState[`q${index}`]}
+          </Text>
+          <Slider
+            onValueChange={handleSlide}
+            style={{ width: 200, height: 40 }}
+            minimumValue={0}
+            maximumValue={5}
+            minimumTrackTintColor="#FF3535"
+            maximumTrackTintColor="hsla(0, 100%, 100%, 0.5)"
+          />
+        </View>
+      </View>
+    );
+  };
 
   return (
     <View
@@ -71,7 +116,7 @@ export const Survey = (props) => {
         ref={isCarousel}
         data={questions}
         renderItem={CarouselQuestionItem}
-        itemWidth={350}
+        itemWidth={335}
         itemHeight={400}
         sliderWidth={400}
         sliderHeight={400}
@@ -80,43 +125,46 @@ export const Survey = (props) => {
           alignItems: 'center',
         }}
       />
+      <View
+        style={{
+          flex: 1,
+          width: '100%',
+          alignItems: 'flex-end',
+          marginBottom: 10,
+        }}
+      >
+        <Pressable style={styles.buttonRed}>
+          <Text style={styles.buttonTextRed}>Submit</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 const questions = [
   {
-    text: 'Question 1',
-    options: 'Options...',
+    text: 'Rate the story',
+    options: [1, 2, 3, 4, 5],
   },
   {
-    text: 'Question 2',
-    options: 'Options...',
+    text: 'Rate the visuals',
+    options: [1, 2, 3, 4, 5],
   },
   {
-    text: 'Question 3',
-    options: 'Options...',
+    text: 'Rate the performances',
+    options: [1, 2, 3, 4, 5],
   },
   {
-    text: 'Question 4',
-    options: 'Options...',
+    text: 'How likely are you to watch this film again?',
+    options: [1, 2, 3, 4, 5],
   },
 ];
 
-const CarouselQuestionItem = ({ item, index }) => {
-  return (
-    <View style={questionContainerStyle}>
-      <Text>{item.text}</Text>
-      <Text>{item.options}</Text>
-    </View>
-  );
-};
-
 const questionContainerStyle = {
   alignItems: 'center',
-  justifyContent: 'center',
-  width: 350,
+  justifyContent: 'flex-start',
+  width: 335,
   height: 400,
   borderRadius: 15,
-  backgroundColor: 'green',
+  backgroundColor: '#151515',
 };

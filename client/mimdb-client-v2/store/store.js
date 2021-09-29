@@ -7,6 +7,7 @@ import authReducer from './authSlice';
 import loginReducer from './loginSlice';
 import registerReducer from './registerSlice';
 import homeReducer from './homeSlice';
+import surveyReducer from './surveySlice';
 
 export default configureStore({
   // Add slice reducers to store
@@ -15,5 +16,6 @@ export default configureStore({
     login: loginReducer,
     register: registerReducer,
     home: homeReducer,
+    survey: surveyReducer,
   },
 });
